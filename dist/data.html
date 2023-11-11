@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    </head>
+
+    <body>
+<p id="name"></p>
+<p id="hcp"></p>
+
+    </body>
+
+<script>
+
+const ply = localStorage.getItem("player")
+const hp = localStorage.getItem("hcp")
+    document.getElementById("name").innerHTML = ply
+    document.getElementById("hcp").innerHTML = hp
+   // window.location.href="scores.html?player=" + ply + "&hcp=" + hp 
+   //
+   location.reload() 
+</script>
+</html>

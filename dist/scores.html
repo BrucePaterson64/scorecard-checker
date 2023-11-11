@@ -1,0 +1,465 @@
+<html lang="en">
+   
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="styleSheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styleSheet.css">  
+  <title>Scorecard Check</title>
+</head>
+<style>
+
+.btnlft {
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    color: blue;
+    background-color: lightgray;
+    font-weight: bold;
+    
+   }
+.btnrgt {
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    color: blue;
+    background-color: lightgray;
+    font-weight: bold;
+ 
+   }
+.btn {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    color: blue;
+    background-color: lightgray;
+    font-weight: bold;
+    }
+
+table.table-bordered{
+    border:1px solid blue;
+}
+table.table-bordered > thead > tr > th{
+    border:1px solid blue;
+}
+table.table-bordered > tbody > tr > td{
+    border:1px solid blue;
+}
+
+input { 
+    text-align: center; 
+    font-weight: bold;
+}
+</style>
+
+<body class="grey lighten-2">
+
+  <!-- NAVBAR -->
+<nav class="z-depth-0 grey lighten-3">
+    <div class="nav-wrapper">
+        
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger sidenav-close"><i class="material-icons" style="color:grey;" >menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="logged-in" style="display:block;">
+              <a href="index.html" class="black-text" id="home">Home</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="players.html" class="black-text modal-trigger" data-target="modal-account">Players</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="scores.html" class="black-text modal-trigger" data-target="modal-account">Score Entry</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="league.html" class="black-text" id="report">League Table</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="courses.html" class="black-text" id="admin">Courses</a>
+            </li>
+            <li class="logged-out" style="display:block;">
+                <a href="#" class="black-text modal-trigger" data-target="modal-login">Login</a>
+            </li>
+            <li class="logged-out" style="display:block;">
+                <a href="#" class="black-text modal-trigger" data-target="modal-signup">Sign up</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+              <a href="#" class="black-text" id="logout">Logout</a>
+          </li> 
+        </ul>
+    </div>
+</nav>
+    <ul id="mobile-demo" class="sidenav sidenav-close">
+      <li class="logged-in" style="display:block;">
+        <a href="index.html" class="black-text ">Home</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+            <a href="players.html" class="black-text modal-trigger" data-target="modal-account">Players</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="scores.html" class="black-text modal-trigger" data-target="modal-account">Score Entry</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="league.html" class="black-text ">League Table</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="courses.html" class="black-text ">Courses</a>
+        </li>
+        <li class="logged-out" style="display:block;">
+        <a href="#" class="black-text modal-trigger" data-target="modal-login">Login</a>
+        </li>
+        <li class="logged-out" style="display:block;">
+        <a href="#" class="black-text modal-trigger" data-target="modal-signup">Sign up</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+          <a href="#" class="black-text" id="mob-logout">Logout</a>
+          </li>
+        
+    </ul>
+    
+    <div class="container"> 
+        <div class="row">
+            <div class="col-12">
+                <table class="table  table-bordered">
+                    <tr><td>Club:</td><td id="selClub" colspan="5" style="font-weight: bold;"></td></tr>
+                    <tr><td>Player:</td><td style="text-align: left; font-weight: bold;" colspan="6" id="selMember"></td></tr>
+                    <tr><td >WHS:</td><td id="whs" style="font-weight: bold;"></td><td>Course:</td><td id="courseHcp" style="font-weight: bold;"></td><td>Playing:</td><td ID="playingHcp" style="font-weight: bold;"></td></tr>
+                </table>
+                <table class="table  table-bordered">    
+                    <tr><td>Hole:</td><td style="font-weight:bold" id="current-hole">1</td><td style="padding: 0; width:75px"><button class="btnlft"><</button></td><td style="padding: 0; width:75px"><button class="btnrgt">></button></td><td>Slope:</td><td id="slope">136</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <table class="table table-bordered" id="frt9" style="border-color:white;">
+                    <thead>
+                        <tr><td style="background-color: white" id="hole_1">1</td><td style="background-color: lightgreen" id="par_1">4</td><td style="background-color: red; color:white" id="index_1">6</td><td style="background-color: yellow" id="score_1"></td></tr>
+                        <tr><td style="background-color: white" id="hole_2">2</td><td style="background-color: lightgreen" id="par_2">5</td><td style="background-color: red; color:white" id="index_2">6</td><td style="background-color: yellow" id="score_2"></td></tr>
+                        <tr><td style="background-color: white" id="hole_3">3</td><td style="background-color: lightgreen" id="par_3">4</td><td style="background-color: red; color:white" id="index_3">6</td><td style="background-color: yellow" id="score_3"></td></tr>
+                        <tr><td style="background-color: white" id="hole_4">4</td><td style="background-color: lightgreen" id="par_4">4</td><td style="background-color: red; color:white" id="index_4">6</td><td style="background-color: yellow" id="score_4"></td></tr>
+                        <tr><td style="background-color: white" id="hole_5">5</td><td style="background-color: lightgreen" id="par_5">3</td><td style="background-color: red; color:white" id="index_5">6</td><td style="background-color: yellow" id="score_5"></td></tr>
+                        <tr><td style="background-color: white" id="hole_6">6</td><td style="background-color: lightgreen" id="par_6">4</td><td style="background-color: red; color:white" id="index_6">6</td><td style="background-color: yellow" id="score_6"></td></tr>
+                        <tr><td style="background-color: white" id="hole_7">7</td><td style="background-color: lightgreen" id="par_7">4</td><td style="background-color: red; color:white" id="index_7">6</td><td style="background-color: yellow" id="score_7"></td></tr>
+                        <tr><td style="background-color: white" id="hole_8">8</td><td style="background-color: lightgreen" id="par_8">3</td><td style="background-color: red; color:white" id="index_8">6</td><td style="background-color: yellow" id="score_8"></td></tr>
+                        <tr><td style="background-color: white" id="hole_9">9</td><td style="background-color: lightgreen" id="par_9">5</td><td style="background-color: red; color:white" id="index_9">6</td><td style="background-color: yellow" id="score_9"></td></tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="col-4">
+                <table id="bck9" class="table table-striped table-bordered">
+                    <thead>
+                        <tr><td style="background-color: white" id="hole_10">10</td><td style="background-color: lightgreen" id="par_10">3</td><td style="background-color: red; color:white" id="index_10">6</td><td style="background-color: yellow" id="score_10"></td></tr>
+                        <tr><td style="background-color: white" id="hole_11">11</td><td style="background-color: lightgreen" id="par_11">4</td><td style="background-color: red; color:white" id="index_11">6</td><td style="background-color: yellow" id="score_11"></td></tr>
+                        <tr><td style="background-color: white" id="hole_12">12</td><td style="background-color: lightgreen" id="par_12">5</td><td style="background-color: red; color:white" id="index_12">6</td><td style="background-color: yellow" id="score_12"></td></tr>
+                        <tr><td style="background-color: white" id="hole_13">13</td><td style="background-color: lightgreen" id="par_13">3</td><td style="background-color: red; color:white" id="index_13">6</td><td style="background-color: yellow" id="score_13"></td></tr>
+                        <tr><td style="background-color: white" id="hole_14">14</td><td style="background-color: lightgreen" id="par_14">4</td><td style="background-color: red; color:white" id="index_14">6</td><td style="background-color: yellow" id="score_14"></td></tr>
+                        <tr><td style="background-color: white" id="hole_15">15</td><td style="background-color: lightgreen" id="par_15">5</td><td style="background-color: red; color:white" id="index_15">6</td><td style="background-color: yellow" id="score_15"></td></tr>
+                        <tr><td style="background-color: white" id="hole_16">16</td><td style="background-color: lightgreen" id="par_16">3</td><td style="background-color: red; color:white" id="index_16">6</td><td style="background-color: yellow" id="score_16"></td></tr>
+                        <tr><td style="background-color: white" id="hole_17">17</td><td style="background-color: lightgreen" id="par_17">4</td><td style="background-color: red; color:white" id="index_17">6</td><td style="background-color: yellow" id="score_17"></td></tr>
+                        <tr><td style="background-color: white" id="hole_18">18</td><td style="background-color: lightgreen" id="par_18">5</td><td style="background-color: red; color:white" id="index_18">6</td><td style="background-color: yellow" id="score_18"></td></tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="col-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr><td style="padding: 0; width:75px" ><button id="s1" class="btn">1</button></td><td style="padding: 0; width:75px"><button id="s2" class="btn">2</button></td></tr>
+                        <tr><td style="padding: 0; width:75px" ><button id="s3" class="btn">3</button></td><td style="padding: 0; width:75px" ><button id="s4" class="btn">4</button></td></tr>
+                        <tr><td style="padding: 0; width:75px" ><button id="s5" class="btn">5</button></td><td style="padding: 0; width:75px"><button id="s6" class="btn">6</button></td></tr>
+                        <tr><td style="padding: 0; width:75px" ><button id="s7" class="btn">7</button></td><td style="padding: 0; width:75px"><button id="s8" class="btn">8</button></td></tr>
+                        <tr><td style="padding: 0; width:75px" ><button id="s9" class="btn">9</button></td><td style="padding: 0; width:75px" ><button id="s0" class="btn">0</button></td></tr>
+                        <tr><td colspan="2"><button class="btn" id="clear">Clear</button></td></tr>
+                        <tr><td  colspan="2"style="font-size: 66; height:115px; border:solid 1px black" id="total"></td></tr>
+
+                    </thead>
+                </table>
+                
+            </div>
+            
+        </div>
+        <div><button type="button" class=" btn-success" style="height:35px; width:100%;">Save Score</button></div>
+    </div>
+    
+  <script src="bundle.js"></script>
+</body>
+</html>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  
+
+  <script>
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const getHcp = urlParams.get('hcp')
+const getPlayer = urlParams.get('player')
+const courseSlope = document.getElementById("slope").innerText;
+console.log(courseSlope)
+const cHcp = Math.round((getHcp / 113) * courseSlope);
+const pHcp = Math.round(cHcp * 0.9);
+document.getElementById("courseHcp").innerHTML = cHcp;
+document.getElementById("playingHcp").innerHTML = pHcp;
+document.getElementById("selMember").innerHTML = getPlayer;
+document.getElementById("whs").innerHTML = getHcp;
+
+const reSlope = document.getElementById("slope");
+reSlope.addEventListener("change", function() {
+const courseSlope = document.getElementById("slope").value;
+const cHcp = Math.round((getHcp / 113) * courseSlope);
+const pHcp = Math.round(cHcp * 0.9);
+document.getElementById("courseHcp").innerHTML = cHcp;
+document.getElementById("playingHcp").innerHTML = pHcp;
+})
+  
+const clr = document.querySelector('#clear')
+clr.addEventListener('click', (e) => {
+ location.reload()
+})
+const addone = document.querySelector('#s1')
+addone.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 1
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const addtwo = document.querySelector('#s2')
+addtwo.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 2
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add3 = document.querySelector('#s3')
+add3.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 3
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add4 = document.querySelector('#s4')
+add4.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 4
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add5 = document.querySelector('#s5')
+add5.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 5
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add6 = document.querySelector('#s6')
+add6.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 6
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add7 = document.querySelector('#s7')
+add7.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 7
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add8 = document.querySelector('#s8')
+add8.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 8
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add9 = document.querySelector('#s9')
+add9.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 9
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const add0 = document.querySelector('#s0')
+add0.addEventListener('click', (e) => {
+  e.preventDefault()
+var hole_ = []
+var ch = document.getElementById("current-hole").innerHTML
+chNo = parseInt(ch)
+var h ="score_" + chNo
+var scr = document.getElementById(h)
+scr.innerHTML = 0
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+total()
+})
+const nextHole = document.querySelector('.btnrgt')
+nextHole.addEventListener('click', (e) => {
+  e.preventDefault()
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) + 1;
+if (val >18) {
+    val = 1
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+})
+const lastHole = document.querySelector('.btnlft')
+lastHole.addEventListener('click', (e) => {
+  e.preventDefault()
+var nexthole = document.getElementById("current-hole").innerHTML
+var val = parseInt(nexthole) - 1;
+if (val < 1) {
+    val = 18
+    document.getElementById("current-hole").innerHTML = val
+} else {
+document.getElementById("current-hole").innerHTML = val
+}
+})
+
+function total() {
+    
+var table = document.getElementById("frt9")
+var sumVal = 0;
+for (var i = 0; i < table.rows.length; i++) {
+    sumVal+=Number(table.rows[i].cells[3].innerText)
+}
+var table = document.getElementById("bck9")
+var sumVal1 = 0;
+for (var i = 0; i < table.rows.length; i++) {
+    sumVal1+=Number(table.rows[i].cells[3].innerText)
+}
+document.getElementById("total").innerHTML = sumVal + sumVal1;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
+
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+
+});
+  </script>
+

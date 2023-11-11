@@ -1,0 +1,245 @@
+<html lang="en">
+   
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="styleSheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styleSheet.css">  
+  <title>Scorecard Check</title>
+</head>
+
+
+<body class="grey lighten-2">
+
+  <!-- NAVBAR -->
+<nav class="z-depth-0 grey lighten-3">
+    <div class="nav-wrapper">
+        
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger sidenav-close"><i class="material-icons" style="color:grey;" >menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="logged-in" style="display:block;">
+              <a href="index.html" class="black-text" id="home">Home</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="players.html" class="black-text modal-trigger" data-target="modal-account">Players</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="scores.html" class="black-text modal-trigger" data-target="modal-account">Score Entry</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="league.html" class="black-text" id="report">League Table</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="courses.html" class="black-text" id="admin">Courses</a>
+            </li>
+            <li class="logged-out" style="display:block;">
+                <a href="#" class="black-text modal-trigger" data-target="modal-login">Login</a>
+            </li>
+            <li class="logged-out" style="display:block;">
+                <a href="#" class="black-text modal-trigger" data-target="modal-signup">Sign up</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+              <a href="#" class="black-text" id="logout">Logout</a>
+          </li> 
+        </ul>
+    </div>
+</nav>
+    <ul id="mobile-demo" class="sidenav sidenav-close">
+      <li class="logged-in" style="display:block;">
+        <a href="index.html" class="black-text ">Home</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+            <a href="players.html" class="black-text modal-trigger" data-target="modal-account">Players</a>
+        </li>
+                <li class="logged-in" style="display:block;">
+        <a href="scores.html" class="black-text modal-trigger" data-target="modal-account">Score Entry</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="league.html" class="black-text ">League Table</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="courses.html" class="black-text ">Courses</a>
+        </li>
+        <li class="logged-out" style="display:block;">
+        <a href="#" class="black-text modal-trigger" data-target="modal-login">Login</a>
+        </li>
+        <li class="logged-out" style="display:block;">
+        <a href="#" class="black-text modal-trigger" data-target="modal-signup">Sign up</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+          <a href="#" class="black-text" id="mob-logout">Logout</a>
+          </li>
+        
+    </ul>
+    <div class="container" id="selClubs" style="display:block">
+        <h2>Golf Clubs</h2>
+        <div class="row">
+            <div class="col-12">
+                <div id="clubList">
+                    <table class="table table-hover table-striped clickable" >
+                        <th>-- Select a Club --</th>
+                        <tbody class="clubList">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="selTees" style="display:none">
+      <h2>Select todays "Tees"</h2>
+      <div class="row">
+          <div class="col-12">
+              <div id="teeList">
+                  <table class="table table-hover table-striped clickab" >
+                      <th>-- Select a Tee --</th>
+                      <tbody class="teeList">
+                          
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+     
+    <div class="container" id="selPlayers" style="display:none">
+        <h2><div id="selClub"></div><div>Players</div></h2>
+        <div class="row">
+            <div class="col-12">
+                <div id="playerList">
+                    <table class="table table-hover table-striped clickabl" >
+                        <th>Click on Players Name</th><th>WHS Hcp</th>
+                        <tbody class="playersList">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <form class="changeClub">
+                    <button>Change Club</button>
+                </form>
+            </div>
+        </div>
+    </div>  
+  
+  <script src="bundle.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  
+
+  <script>
+  const onCellClick = (e) => {
+  const {target} = e; // This is the object that was clicked
+  const row = target.parentNode; // The parent, in this case a <tr>
+  const isActive = target.classList.contains("active"); // Is the cell already active?
+  const cells = row.getElementsByTagName("td"); // All the <td> elements in the row
+  const cell = e.target.closest('td');
+  const rowData = cell.innerHTML;
+  localStorage.setItem("club", rowData);
+  window.location.reload();
+  
+  Array.from(cells).forEach(c => {
+    c.classList.remove("active");
+  });
+  
+  if (isActive) {
+    target.classList.remove("active");
+  } else {
+    target.classList.add("active");
+  }
+}
+  const onCellClic = (e) => {
+  const {target} = e; // This is the object that was clicked
+  const row = target.parentNode; // The parent, in this case a <tr>
+  const isActive = target.classList.contains("active"); // Is the cell already active?
+  const cells = row.getElementsByTagName("td"); // All the <td> elements in the row
+  const cell = e.target.closest('td');
+  const rowData = cells.innerHTML;
+  const member = cells.pname.innerHTML;
+  const hcp = cells.pwhs.innerHTML;
+  //const whsHcp = localStorage.getItem("hcp");
+  window.location.href="scores.html?player=" + member + "&hcp=" + hcp
+  //console.log(whsHcp)
+
+  Array.from(cells).forEach(c => {
+    c.classList.remove("active");
+  });
+  
+  if (isActive) {
+    target.classList.remove("active");
+  } else {
+    target.classList.add("active");
+  }
+}
+const onCellClik = (e) => {
+  const {target} = e; // This is the object that was clicked
+  const row = target.parentNode; // The parent, in this case a <tr>
+  const isActive = target.classList.contains("active"); // Is the cell already active?
+  const cells = row.getElementsByTagName("td"); // All the <td> elements in the row
+  const cell = e.target.closest('td');
+  const tee = cell.innerHTML;
+  console.log(tee);
+  const todaysTee = localStorage.setItem("tee", tee);
+  //window.location.href="scores.html?player=" + member + "&hcp=" + hcp
+  //console.log(whsHcp)
+
+  Array.from(cells).forEach(c => {
+    c.classList.remove("active");
+  });
+  
+  if (isActive) {
+    target.classList.remove("active");
+  } else {
+    target.classList.add("active");
+  }
+}
+let cBody = document.querySelectorAll(".clickable tbody");
+cBody.forEach(box => {
+  box.addEventListener('click', function(e) {
+    onCellClick(e);
+   
+  })
+});
+let cBod = document.querySelectorAll(".clickabl tbody");
+cBod.forEach(box => {
+  box.addEventListener('click', function(e) {
+    onCellClic(e);
+   
+  })
+});
+let cBoy = document.querySelectorAll(".clickab tbody");
+cBoy.forEach(box => {
+  box.addEventListener('click', function(e) {
+    onCellClik(e);
+   
+  })
+});
+document.addEventListener('DOMContentLoaded', function() {
+  
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
+
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+
+});
+const changeCourse = document.querySelector('.changeClub')
+changeCourse.addEventListener('click', (e) => {
+  e.preventDefault()
+  document.getElementById("selClubs").style.display='block';
+  document.getElementById("selPlayers").style.display='none';
+  document.getElementById("selTees").style.display='none';
+})
+
+  </script>
+</body>
+</html>
+

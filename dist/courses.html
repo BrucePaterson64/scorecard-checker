@@ -1,0 +1,164 @@
+<html lang="en">
+   
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="styleSheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styleSheet.css">  
+  <title>Scorecard Check</title>
+</head>
+
+
+<body class="grey lighten-2">
+
+  <!-- NAVBAR -->
+<nav class="z-depth-0 grey lighten-3">
+    <div class="nav-wrapper">
+        
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger sidenav-close"><i class="material-icons" style="color:grey;" >menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="logged-in" style="display:block;">
+              <a href="index.html" class="black-text" id="home">Home</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+              <a href="players.html" class="black-text modal-trigger" data-target="modal-account">Players</a>
+          </li>
+            <li class="logged-in" style="display:block;">
+                <a href="scores.html" class="black-text modal-trigger" data-target="modal-account">Score Entry</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="league.html" class="black-text" id="report">League Table</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+                <a href="courses.html" class="black-text" id="admin">Courses</a>
+            </li>
+            <li class="logged-out" style="display:block;">
+                <a href="#" class="black-text modal-trigger" data-target="modal-login">Login</a>
+            </li>
+            <li class="logged-out" style="display:block;">
+                <a href="#" class="black-text modal-trigger" data-target="modal-signup">Sign up</a>
+            </li>
+            <li class="logged-in" style="display:block;">
+              <a href="#" class="black-text" id="logout">Logout</a>
+          </li> 
+        </ul>
+    </div>
+</nav>
+    <ul id="mobile-demo" class="sidenav sidenav-close">
+      <li class="logged-in" style="display:block;">
+        <a href="index.html" class="black-text ">Home</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+          <a href="players.html" class="black-text modal-trigger" data-target="modal-account">Players</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="scores.html" class="black-text modal-trigger" data-target="modal-account">Score Entry</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="league.html" class="black-text ">League Table</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+        <a href="courses.html" class="black-text ">Courses</a>
+        </li>
+        <li class="logged-out" style="display:block;">
+        <a href="#" class="black-text modal-trigger" data-target="modal-login">Login</a>
+        </li>
+        <li class="logged-out" style="display:block;">
+        <a href="#" class="black-text modal-trigger" data-target="modal-signup">Sign up</a>
+        </li>
+        <li class="logged-in" style="display:block;">
+          <a href="#" class="black-text" id="mob-logout">Logout</a>
+          </li>
+        
+    </ul>
+ 
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Firebase 9</title>
+      </head>
+      <body>
+        <h1>Getting Started with Firebase 9</h1>
+      
+        <h2>Firebase Firestore</h2>
+      
+        <form class="add">
+          <label >Course:</label>
+          <input type="text" name="course" required>
+          <label >Town:</label>
+          <input type="text" name="town" required>
+          
+          <button>add a new course</button>
+        </form>
+      
+        <form class="delete">
+          <label>Document id:</label>
+          <input type="text" name="id" required>
+      
+          <button>delete a course</button>
+        </form>
+        <form class="update">
+          <label>Document id:</label>
+          <input type="text" name="id" required>
+      
+          <button>update a course</button>
+        </form>
+      
+        <h2>Firebase Auth</h2>
+      
+        
+        <form class="signup">
+          <label>email:</label>
+          <input type="email"name="email">
+          <label >password:</label>
+          <input type="password" name="password">
+          <button>signup</button>
+        </form>
+      
+        <form class="login">
+          <label">email:</label>
+          <input type="email"name="email">
+          <label >password:</label>
+          <input type="password" name="password">
+          <button>login</button>
+        </form>
+        <button class="logout">logout</button>
+        
+      
+       
+      
+        <script src="bundle.js"></script>
+      </body>
+      </html>
+  
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  
+
+  <script>
+  
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
+
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+
+});
+  </script>
+</body>
+</html>
