@@ -32,11 +32,8 @@ const L3List = document.querySelector('.teeList');
 const colRef = collection(db, 'courses')
 const colPlayers = collection(db, 'players')
 const getClub = localStorage.getItem("club")
-const getPlayer = localStorage.getItem("player")
-console.log(getClub)
-console.log(getPlayer)
 document.getElementById("selClub").innerHTML = getClub;
-//document.getElementById("selMember").innerHTML = getPlayer;
+
 
 const c = query(colPlayers, where ("club", "==", getClub));
 const q = query(colRef,  orderBy('course'));
@@ -62,9 +59,9 @@ const t = query(colRef,  where ("course", "==", getClub));
   };
 
   const setupL2 = (data) => {
-    document.getElementById("selPlayers").style.display='none';
-    document.getElementById("selClubs").style.display='block';
-    document.getElementById("selTees").style.display='none';
+   // document.getElementById("selPlayers").style.display='none';
+   // document.getElementById("selClubs").style.display='block';
+   // document.getElementById("selTees").style.display='none';
     if (data.length) {
       let html = '';
       data.forEach(doc => {
@@ -79,18 +76,18 @@ const t = query(colRef,  where ("course", "==", getClub));
   };
 
   const setupL3 = (data) => {
-    document.getElementById("selPlayers").style.display='none';
-    document.getElementById("selClubs").style.display='none';
-    document.getElementById("selTees").style.display='block';
+    //document.getElementById("selPlayers").style.display='none';
+    //document.getElementById("selClubs").style.display='none';
+    //document.getElementById("selTees").style.display='block';
     if (data.length) {
       let html = '';
       data.forEach(doc => {
         const l3 = doc.data();
         const l3i = `
-          <tr><td>White<td>${l3.white}</td></tr>
-          <tr><td>Yellow<td>${l3.yellow}</td></tr>
-          <tr><td>Green<td>${l3.green}</td></tr>
-          <tr><td>Red<td>${l3.red}</td></tr>
+          <tr><td>White<td class="slp">${l3.white}</td></tr>
+          <tr><td>Yellow<td class="slp">${l3.yellow}</td></tr>
+          <tr><td>Green<td class="slp">${l3.green}</td></tr>
+          <tr><td>Red<td class="slp">${l3.red}</td></tr>
         `;
       html += l3i;
       });
@@ -120,6 +117,7 @@ const t = query(colRef,  where ("course", "==", getClub));
     })
      setupL3(snapshot.docs);
   })
+  
   let whsHcp = []
   const pwhs = localStorage.getItem("player");
   const hcp = query(colPlayers, where ("name", "==", pwhs));
@@ -131,20 +129,6 @@ const t = query(colRef,  where ("course", "==", getClub));
       whsHcp = playershcp.whs;
     }) 
   })
-  //let newSlope = []
-  const teeColour = localStorage.getItem("tee");
-  const club = localStorage.getItem("club");
-  const todaysSlope = query(colRef, where ("course", "==", club));
-  onSnapshot(todaysSlope, (snapshot) => {
-    let newSlope = []
-    snapshot.docs.forEach(doc => {
-      newSlope.push({ ...doc.data(), id: doc.id })
-      newSlope = doc.data();
-      localStorage.setItem("slope", newSlope)
-      console.log( newSlope)
-    }) 
-  })
-
   
  
 // adding docs

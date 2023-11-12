@@ -103,6 +103,9 @@
                       </tbody>
                   </table>
               </div>
+              <form class="changeClub">
+                <button>Change Club</button>
+            </form>
           </div>
       </div>
   </div>
@@ -142,7 +145,9 @@
   const rowData = cell.innerHTML;
   localStorage.setItem("club", rowData);
   window.location.reload();
-  
+  document.getElementById("selPlayers").style.display='none';
+  document.getElementById("selClubs").style.display='none';
+  document.getElementById("selTees").style.display='block';
   Array.from(cells).forEach(c => {
     c.classList.remove("active");
   });
@@ -162,8 +167,10 @@
   const rowData = cells.innerHTML;
   const member = cells.pname.innerHTML;
   const hcp = cells.pwhs.innerHTML;
-  //const whsHcp = localStorage.getItem("hcp");
-  window.location.href="scores.html?player=" + member + "&hcp=" + hcp
+  localStorage.setItem("hcp", hcp);
+  localStorage.setItem("player", member);
+  //window.location.href="scores.html?player=" + member + "&hcp=" + hcp;
+  window.location.href="scores.html";
   //console.log(whsHcp)
 
   Array.from(cells).forEach(c => {
@@ -177,16 +184,20 @@
   }
 }
 const onCellClik = (e) => {
+ 
   const {target} = e; // This is the object that was clicked
   const row = target.parentNode; // The parent, in this case a <tr>
   const isActive = target.classList.contains("active"); // Is the cell already active?
-  const cells = row.getElementsByTagName("td"); // All the <td> elements in the row
+  const cells = row.getElementsByClassName("slp"); // All the <td> elements in the row
   const cell = e.target.closest('td');
   const tee = cell.innerHTML;
-  console.log(tee);
-  const todaysTee = localStorage.setItem("tee", tee);
-  //window.location.href="scores.html?player=" + member + "&hcp=" + hcp
-  //console.log(whsHcp)
+  const todaysSlope = row.cells[1].innerHTML;
+  localStorage.setItem("slope", todaysSlope);
+  localStorage.setItem("tee", tee);
+  const getClub = localStorage.getItem("club")
+  document.getElementById("selPlayers").style.display='block';
+  document.getElementById("selClubs").style.display='none';
+  document.getElementById("selTees").style.display='none';
 
   Array.from(cells).forEach(c => {
     c.classList.remove("active");

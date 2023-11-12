@@ -124,12 +124,12 @@ input {
         <div class="row">
             <div class="col-12">
                 <table class="table  table-bordered">
-                    <tr><td>Club:</td><td id="selClub" colspan="5" style="font-weight: bold;"></td></tr>
+                    <tr><td>Club:</td><td id="selClub1" colspan="5" style="font-weight: bold;"></td></tr>
                     <tr><td>Player:</td><td style="text-align: left; font-weight: bold;" colspan="6" id="selMember"></td></tr>
                     <tr><td >WHS:</td><td id="whs" style="font-weight: bold;"></td><td>Course:</td><td id="courseHcp" style="font-weight: bold;"></td><td>Playing:</td><td ID="playingHcp" style="font-weight: bold;"></td></tr>
                 </table>
                 <table class="table  table-bordered">    
-                    <tr><td>Hole:</td><td style="font-weight:bold" id="current-hole">1</td><td style="padding: 0; width:75px"><button class="btnlft"><</button></td><td style="padding: 0; width:75px"><button class="btnrgt">></button></td><td>Slope:</td><td id="slope">136</td></tr>
+                    <tr><td>Hole:</td><td style="font-weight:bold" id="current-hole">1</td><td style="padding: 0; width:75px"><button class="btnlft"><</button></td><td style="padding: 0; width:75px"><button class="btnrgt">></button></td><td>Slope:</td><td id="todaySlope"></td></tr>
                 </table>
             </div>
         </div>
@@ -193,27 +193,25 @@ input {
 
   <script>
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const getHcp = urlParams.get('hcp')
-const getPlayer = urlParams.get('player')
-const courseSlope = document.getElementById("slope").innerText;
-console.log(courseSlope)
+//const queryString = window.location.search;
+//const urlParams = new URLSearchParams(queryString);
+//const getHcp = urlParams.get('hcp')
+const getClub1 = localStorage.getItem("club")
+document.getElementById("selClub1").innerHTML = getClub1;
+const courseSlope = localStorage.getItem("slope");
+document.getElementById("todaySlope").innerHTML = courseSlope
+const getPlayer = localStorage.getItem("player");
+const getHcp = localStorage.getItem("hcp");
+console.log(courseSlope);
 const cHcp = Math.round((getHcp / 113) * courseSlope);
 const pHcp = Math.round(cHcp * 0.9);
 document.getElementById("courseHcp").innerHTML = cHcp;
 document.getElementById("playingHcp").innerHTML = pHcp;
+
 document.getElementById("selMember").innerHTML = getPlayer;
 document.getElementById("whs").innerHTML = getHcp;
 
-const reSlope = document.getElementById("slope");
-reSlope.addEventListener("change", function() {
-const courseSlope = document.getElementById("slope").value;
-const cHcp = Math.round((getHcp / 113) * courseSlope);
-const pHcp = Math.round(cHcp * 0.9);
-document.getElementById("courseHcp").innerHTML = cHcp;
-document.getElementById("playingHcp").innerHTML = pHcp;
-})
+
   
 const clr = document.querySelector('#clear')
 clr.addEventListener('click', (e) => {
