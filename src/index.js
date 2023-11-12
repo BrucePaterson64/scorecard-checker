@@ -59,9 +59,9 @@ const t = query(colRef,  where ("course", "==", getClub));
   };
 
   const setupL2 = (data) => {
-   // document.getElementById("selPlayers").style.display='none';
-   // document.getElementById("selClubs").style.display='block';
-   // document.getElementById("selTees").style.display='none';
+    document.getElementById("selPlayers").style.display='none';
+    document.getElementById("selClubs").style.display='block';
+    document.getElementById("selTees").style.display='none';
     if (data.length) {
       let html = '';
       data.forEach(doc => {
@@ -76,9 +76,9 @@ const t = query(colRef,  where ("course", "==", getClub));
   };
 
   const setupL3 = (data) => {
-    //document.getElementById("selPlayers").style.display='none';
-    //document.getElementById("selClubs").style.display='none';
-    //document.getElementById("selTees").style.display='block';
+    document.getElementById("selPlayers").style.display='none';
+    document.getElementById("selClubs").style.display='none';
+    document.getElementById("selTees").style.display='block';
     if (data.length) {
       let html = '';
       data.forEach(doc => {
@@ -88,6 +88,8 @@ const t = query(colRef,  where ("course", "==", getClub));
           <tr><td>Yellow<td class="slp">${l3.yellow}</td></tr>
           <tr><td>Green<td class="slp">${l3.green}</td></tr>
           <tr><td>Red<td class="slp">${l3.red}</td></tr>
+          <tr><td colspan="2" style="color: red; text-align:center">Amend  &#x2216; Add course slopes at: </td></tr>
+          <tr><td colspan="2" style="color: red; text-align:center"> "Menu -> Courses"</td></tr>
         `;
       html += l3i;
       });
@@ -115,7 +117,7 @@ const t = query(colRef,  where ("course", "==", getClub));
     snapshot.docs.forEach(doc => {
         tees.push({ ...doc.data(), id: doc.id })
     })
-     setupL3(snapshot.docs);
+    setupL3(snapshot.docs);
   })
   
   let whsHcp = []
